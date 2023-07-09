@@ -97,6 +97,8 @@ def main():
     # RL Training...
     ######################################
     ######################################
+    
+    ### env = gym.make('CartPole-v1') : 원하는 환경 생성
     env = gym.make('CartPole-v1')
     q = Qnet()
 
@@ -111,13 +113,34 @@ def main():
 
     for n_epi in range(10000):
         epsilon = max(0.01, 0.08 - 0.01*(n_epi/200)) #Linear annealing from 8% to 1%
+
+        ### env.reset() : 새로운 에피소드를 불러온다.
+        ## - 입력 : 없음
+        ## - 기능
+        # 1. 로봇 위치 초기화 : /initialpose : init the pose of the robot
+        # 2. 상태 계산
+        # 2-1. 라이다 센서 값 : /scan
+        # 2-2. 목표 지점까지의 거리 : /tf
+        # 2-3. 목표 각도까지의 오차 각도 : /tf
+        # 3. (Optional) 목표 지점 : /goal_pose
+        ## - 출력 : 상태
+        
         s = env.reset()
         done = False
+        
+        print("n_epi = ", n_epi)
 
         while not done:
-            # sample_action(obs, epsilon)
+            ### sample_action(obs, epsilon)
             a = q.sample_action(torch.from_numpy(s).float(), epsilon)      
+            
+            ### observation, reward, done, info = env.step(action)
+            ## - 입력 : 행동 (action)
+            ## - 기능
+            # 1. 로봇의 제어 입력 /cmd_vel : move the robot with linear & angular velocity
+            ## - 출력 : 상태, 보상, 끝남 여부, 정보            
             s_prime, r, done, info = env.step(a)
+            
             done_mask = 0.0 if done else 1.0
             memory.put((s,a,r/100.0,s_prime, done_mask))
             s = s_prime
@@ -135,6 +158,8 @@ def main():
             print("n_episode :{}, score : {:.1f}, n_buffer : {}, eps : {:.1f}%".format(
                                                             n_epi, score/print_interval, memory.size(), epsilon*100))
             score = 0.0
+            
+    ### env.close() : 환경 종료
     env.close()
     
 
