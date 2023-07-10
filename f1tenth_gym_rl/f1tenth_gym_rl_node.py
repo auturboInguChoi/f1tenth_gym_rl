@@ -17,6 +17,31 @@ batch_size    = 32
 
 device = None
 
+class F1TenthGym():
+    def __init__(self):
+        print("F1TenthGym - __init__")
+    
+    ### env.reset() : 새로운 에피소드를 불러온다.
+    ## - 입력 : 없음
+    ## - 기능
+    # 1. 로봇 위치 초기화 : /initialpose : init the pose of the robot
+    # 2. 상태 계산
+        # 2-1. 라이다 센서 값 : /scan
+        # 2-2. 목표 지점까지의 거리 : /tf
+        # 2-3. 목표 각도까지의 오차 각도 : /tf
+    # 3. (Optional) 목표 지점 : /goal_pose
+    ## - 출력 : 상태
+    def reset():
+        print("F1TenthGym - Reset")
+        
+        
+        
+    def step():
+        print("F1TenthGym - Step")        
+        
+    def close():
+        print("F1TenthGym - Close")        
+
 
 class ReplayBuffer():
     def __init__(self):
@@ -119,9 +144,9 @@ def main():
         ## - 기능
         # 1. 로봇 위치 초기화 : /initialpose : init the pose of the robot
         # 2. 상태 계산
-        # 2-1. 라이다 센서 값 : /scan
-        # 2-2. 목표 지점까지의 거리 : /tf
-        # 2-3. 목표 각도까지의 오차 각도 : /tf
+            # 2-1. 라이다 센서 값 : /scan
+            # 2-2. 목표 지점까지의 거리 : /tf
+            # 2-3. 목표 각도까지의 오차 각도 : /tf
         # 3. (Optional) 목표 지점 : /goal_pose
         ## - 출력 : 상태
         
