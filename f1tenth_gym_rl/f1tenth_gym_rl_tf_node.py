@@ -51,7 +51,7 @@ class FrameListener(Node):
     """
     
     # Initiate the Node class's constructor and give it a name
-    super().__init__('f1tenth_tf_node')
+    super().__init__('f1tenth_rl_tf_node')
  
     # Declare and acquire `target_frame` parameter
     self.declare_parameter('target_frame', 'ego_racecar/base_link')

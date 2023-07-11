@@ -7,7 +7,7 @@ from geometry_msgs.msg import PoseStamped
 class SubNode(Node):
 
     def __init__(self):
-        super().__init__('f1tenth_sub_node')
+        super().__init__('f1tenth_rl_sub_node')
         
         
         self.subscription = self.create_subscription(

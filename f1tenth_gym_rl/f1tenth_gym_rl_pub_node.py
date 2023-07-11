@@ -7,7 +7,7 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 class PubNode(Node):
 
     def __init__(self):
-        super().__init__('f1tenth_pub_node')
+        super().__init__('f1tenth_rl_pub_node')
         self.cmd_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
         self.init_publisher = self.create_publisher(PoseWithCovarianceStamped, 'initialpose', 10)
 

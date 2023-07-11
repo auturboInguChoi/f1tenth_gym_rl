@@ -23,7 +23,8 @@ setup(
             'f1tenth_gym_rl_node = f1tenth_gym_rl.f1tenth_gym_rl_node:main',
             'f1tenth_gym_rl_sub_node = f1tenth_gym_rl.f1tenth_gym_rl_sub_node:main',
             'f1tenth_gym_rl_pub_node = f1tenth_gym_rl.f1tenth_gym_rl_pub_node:main',
-            'f1tenth_gym_rl_tf_node = f1tenth_gym_rl.f1tenth_gym_rl_tf_node:main'
+            'f1tenth_gym_rl_tf_node = f1tenth_gym_rl.f1tenth_gym_rl_tf_node:main',
+            'f1tenth_gym_rl_integration_node = f1tenth_gym_rl.f1tenth_gym_rl_integration_node:main'
         ],
     },
 )
