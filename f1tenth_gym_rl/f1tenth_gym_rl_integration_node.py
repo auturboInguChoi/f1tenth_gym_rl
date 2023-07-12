@@ -35,8 +35,15 @@ class F1TenthRosIntegration(Node):
             self.listener_goal_callback,    # 콜백 함수
             1)                             # 큐 사이즈
 
+        # Scan Data
         self.scan_msg = LaserScan()
+        self.scan_data = list()
+        
+        # Goal Position
         self.goal_msg = PoseStamped()
+        self.target_x = 0
+        self.target_y = 0
+        self.target_yaw = 0
         
         ################################################################
         ### Publisher
@@ -60,19 +67,35 @@ class F1TenthRosIntegration(Node):
         tf_timer_period = 0.01
         self.timer = self.create_timer(tf_timer_period, self.on_timer)
         
+        # Position, Orientation
+        self.tf_msg = None
         self.current_x = 0.0
         self.current_y = 0.0 
         self.current_yaw = 0.0
+        
+    def getCurrentPose(self):
+        return self.current_x, self.current_y, self.current_yaw
+    
+    def getGoalPose(self):
+        return self.target_x, self.target_y, self.target_yaw
 
+    def getScan(self):
+        return self.scan_data
 
     def listener_scan_callback(self, msg = LaserScan()):
         
-        self.scan_msg = msg
-        
         # print("listener_scan_callback")
 
-        # self.get_logger().info('I heard: "%s"' % msg.header)
-        # self.get_logger().info('I heard: "%s"' % msg)
+        self.scan_msg = msg
+                
+        ranges_len = len(self.scan_msg.ranges)
+        print(ranges_len)
+        
+        downsample_ranges = self.scan_msg.ranges[::4]
+        
+        self.scan_data = downsample_ranges
+            
+        print(len(self.scan_data))
 
     def listener_goal_callback(self, msg = PoseStamped()):
         
@@ -107,7 +130,9 @@ class F1TenthRosIntegration(Node):
             trans.transform.rotation.y,
             trans.transform.rotation.z,
             trans.transform.rotation.w)
-        self.current_yaw = yaw    
+        self.current_yaw = yaw
+        
+        self.tf_msg = trans
 
         # print("=== TF ===")
         # print("x = ", trans.transform.translation.x)

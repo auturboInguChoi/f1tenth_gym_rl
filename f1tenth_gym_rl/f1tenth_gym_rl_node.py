@@ -21,21 +21,24 @@ class F1TenthGym():
     def __init__(self):
         print("F1TenthGym - __init__")
     
-    ### env.reset() : 새로운 에피소드를 불러온다.
+    ### reset() : 새로운 에피소드를 불러온다.
     ## - 입력 : 없음
     ## - 기능
     # 1. 로봇 위치 초기화 : /initialpose : init the pose of the robot
-    # 2. 상태 계산
+    # 2. 상태(State) 계산을 위한 변수 준비
         # 2-1. 라이다 센서 값 : /scan
-        # 2-2. 목표 지점까지의 거리 : /tf
-        # 2-3. 목표 각도까지의 오차 각도 : /tf
-    # 3. (Optional) 목표 지점 : /goal_pose
+        # 2-2. 목표 지점까지의 거리 : /tf - position, /goal_pose
+        # 2-3. 목표 각도까지의 오차 각도 : /tf - orientation, /goal_pose
     ## - 출력 : 상태
     def reset():
         print("F1TenthGym - Reset")
         
         
-        
+    ### step() : 액션을 취하면 그에 대한 결과 값을 반환한다.
+    ## - 입력 : 행동 (action)
+    ## - 기능
+    # 1. 로봇의 제어 입력 /cmd_vel : move the robot with linear & angular velocity
+    ## - 출력 : 상태, 보상, 끝남 여부, 정보          
     def step():
         print("F1TenthGym - Step")        
         
